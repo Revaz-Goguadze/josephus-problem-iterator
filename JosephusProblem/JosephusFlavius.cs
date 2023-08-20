@@ -12,27 +12,53 @@ namespace JosephusProblem
         /// <summary>
         /// Returns the iterator that generates a list of persons that are crossed out.
         /// </summary>
-        /// <param name="count">Count of the persons in circle.</param>
-        /// <param name="crossedOut">The number of the person to be crossed out.</param>
         /// <returns>Returns the iterator that generates a list of persons that are crossed out.</returns>
-        /// <exception cref="ArgumentException"><paramref name="count"/>is less than 1.</exception>
-        /// <exception cref="ArgumentException"><paramref name="crossedOut"/> is less than 1.</exception>
-        public static IEnumerable<int> GetCrossedOutPersons(int count, int crossedOut)
+        /// <exception cref="ArgumentException"><paramref>
+        ///         <name>count</name>
+        ///     </paramref>
+        ///     is less than 1.</exception>
+        /// <exception cref="ArgumentException"><paramref>
+        ///         <name>crossedOut</name>
+        ///     </paramref>
+        ///     is less than 1.</exception>
+        public static IEnumerable<int> GetCrossedOutPersons(int n, int k)
         {
-            throw new NotImplementedException();
+            List<int> persons = new List<int>(n);
+            for (int i = 1; i <= n; i++)
+            {
+                persons.Add(i);
+            }
+
+            int current = 0;
+            while (persons.Count > 0)
+            {
+                current = (current + k - 1) % persons.Count;
+                yield return persons[current];
+                persons.RemoveAt(current);
+            }
         }
 
         /// <summary>
         /// Returns order number of survivor.
         /// </summary>
-        /// <param name="count">Count of the persons in circle.</param>
-        /// <param name="crossedOut">The number of the person to be crossed out.</param>
         /// <returns>The order number of the last survivor.</returns>
-        /// <exception cref="ArgumentException"><paramref name="count"/>is less than 1.</exception>
-        /// <exception cref="ArgumentException"><paramref name="crossedOut"/> is less than 1.</exception>
-        public static int GetSurvivor(int count, int crossedOut)
+        /// <exception cref="ArgumentException"><paramref>
+        ///         <name>count</name>
+        ///     </paramref>
+        ///     is less than 1.</exception>
+        /// <exception cref="ArgumentException"><paramref>
+        ///         <name>crossedOut</name>
+        ///     </paramref>
+        ///     is less than 1.</exception>
+        public static int GetSurvivor(int n, int k)
         {
-            throw new NotImplementedException();
+            int survivor = 0;
+            for (int i = 2; i <= n; i++)
+            {
+                survivor = (survivor + k) % i;
+            }
+
+            return survivor + 1;
         }
     }
 }
